@@ -2,9 +2,12 @@
  * A program to perform Euclid's algorithm to computer
  *  the greatest common denominator (GCD) of a pair of integers. 
  */
+int d;
 
 int gcd(int u, int v )
 {
+    int j[20];
+    j = 0;
     if (v == 0) return u ;
     else return gcd(v,u-u/v*v);
 }

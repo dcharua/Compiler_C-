@@ -5,6 +5,25 @@ import re
 import globals
 from globalTypes import *
 
+def getToken(imprime = True): 
+  token = lexer.token()
+  if imprime:
+    print(token.type, token.value)
+  if token.type == 'ENDFILE':
+    return (TokenType.ENDFILE, token.value)
+  return (token.type, token.value)
+
+def globales(prog, pos, long):
+  globals._globales(prog, pos, long, lexer) 
+
+#ERROR FUNCTION
+def t_error(t):
+  print('TOKEN ERROR in line %d:' % (t.lexer.lineno))
+  count = 1
+  while re.match(r'[A-Za-z0-9]', t.value[count]):
+    count += 1
+  t.lexer.skip(count)
+
 tokens = []
 for token in TokenType:
   tokens.append(token.name)
@@ -89,23 +108,5 @@ t_OPENBRACE = r'\{'
 t_CLOSEBRACE = r'\}'
 t_ENDFILE = r'\$'
 
-#ERROR FUNCTION
-def t_error(t):
-  print('TOKEN ERROR in line %d:' % (t.lexer.lineno))
-  count = 1
-  while re.match(r'[A-Za-z0-9]', t.value[count]):
-    count += 1
-  t.lexer.skip(count)
-
-def globales(prog, pos, long):
-  globals._globales(prog, pos, long, lexer)
-
-def getToken(imprime = True): 
-  token = lexer.token()
-  if imprime:
-    print(token.type, token.value)
-  if token.type == 'ENDFILE':
-    return (TokenType.ENDFILE, token.value)
-  return (token.type, token.value)
 
 lexer = lex.lex()
