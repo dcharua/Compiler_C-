@@ -57,17 +57,17 @@ def build_table(node, table, returns=False):
         return ['variable', 'int']
 
     elif node[0] is 'iteration_stmt':
-        child = build_table(node[1], table, returns)
+        child = build_table(node[2], table, returns)
         intOp(child)
-        build_table(node[2], table, returns)
+        build_table(node[3], table, returns)
         return None
 
     elif node[0] is 'selection_stmt':
-        child = build_table(node[1], table, returns)
+        child = build_table(node[2], table, returns)
         intOp(child)
-        build_table(node[2], table, returns)
-        if len(node) > 5:
-            build_table(node[3], table, returns)
+        build_table(node[3], table, returns)
+        if len(node) > 6:
+            build_table(node[4], table, returns)
         return None
 
     elif node[0] is 'return_stmt':

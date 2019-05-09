@@ -193,18 +193,21 @@ def p_expression_stmt(p):
 # 15 selection-stmt ->  if ( expression ) statement | if ( expression ) statement else statement
 def p_selection_stmt(p):
     'selection_stmt : IF OPENPAR expression CLOSEPAR statement'
-    p[0] = ['selection_stmt', p[3], p[5]]
+    if len(p) > 6:
+        p[0] = ['selection_stmt', p[1], p[3], p[5], p[6]]
+    else:
+        p[0] = ['selection_stmt', p[1], p[3], p[5]]
 
 
 def p_selection_stmt2(p):
     'selection_stmt : IF OPENPAR expression CLOSEPAR statement ELSE statement'
-    p[0] = ['selection_stmt', p[3], p[5], p[7]]
+    p[0] = ['selection_stmt',  p[1], p[3], p[5], p[6], p[7]]
 
 
 # 16 iteration-stmt -> while ( expression )  statement
 def p_iteration_stmt(p):
     'iteration_stmt : WHILE OPENPAR expression CLOSEPAR statement'
-    p[0] = ['iteration_stmt', p[3], p[5]]
+    p[0] = ['iteration_stmt',  p[1], p[3], p[5]]
 
 
 # 17 return-stmt -> return ;  |  return  expression ;

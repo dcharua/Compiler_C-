@@ -3,7 +3,7 @@
 from globalTypes import *
 from parser import *
 from semantica import *
-#from cgen import *
+from cgen import *
 
 f = open('sample.c-', 'r')
 programa = f.read()
@@ -14,4 +14,4 @@ posicion = 0
 globales(programa, posicion, progLong)
 AST = parser(True)
 semantica(AST, True)
-#codeGen(AST, 'file.s')
+codeGen(AST, 'file.s')
